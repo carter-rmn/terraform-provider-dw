@@ -50,14 +50,8 @@ resource "aws_appautoscaling_target" "msk_storage" {
   service_namespace  = "kafka"
   scalable_dimension = "kafka:broker-storage:VolumeSize"
   resource_id        = aws_msk_cluster.main[0].arn
-  # AWS rejects any value greater than 1 here for this scalable dimension
-  # ("Minimum capacity cannot be greater than 1") -- the real floor/ceiling
-  # for storage scaling is enforced via max_capacity and the target-tracking
-  # policy's target_utilization_percent below, not via min_capacity. Sourced
-  # from config rather than hardcoded so each environment's json is the
-  # single source of truth.
-  min_capacity = var.msk.new.storage_autoscaling.min_capacity
-  max_capacity = var.msk.new.storage_autoscaling.max_volume_size_gb
+  min_capacity       = var.msk.new.storage_autoscaling.min_capacity
+  max_capacity       = var.msk.new.storage_autoscaling.max_volume_size_gb
 }
 
 resource "aws_appautoscaling_policy" "msk_storage" {
