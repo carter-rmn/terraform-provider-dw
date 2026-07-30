@@ -50,7 +50,7 @@ resource "aws_appautoscaling_target" "msk_storage" {
   service_namespace  = "kafka"
   scalable_dimension = "kafka:broker-storage:VolumeSize"
   resource_id        = aws_msk_cluster.main[0].arn
-  min_capacity       = var.msk.new.volume_size
+  min_capacity       = var.msk.new.storage_autoscaling.min_capacity
   max_capacity       = var.msk.new.storage_autoscaling.max_volume_size_gb
 }
 
