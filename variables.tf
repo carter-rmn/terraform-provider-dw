@@ -44,6 +44,7 @@ variable "msk" {
       volume_size            = number
       storage_autoscaling = object({
         enabled                     = bool
+        min_capacity                = number
         max_volume_size_gb          = number
         target_utilization_percent = number
       })
